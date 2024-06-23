@@ -7,4 +7,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  get 'summoners/:name/:tag', to: 'summoners#show'
 end
