@@ -2,8 +2,7 @@ require_relative '../services/summoner_api_service'
 
 class SummonersController < ApplicationController
   def show
-    service = SummonerApiService.new
-    @puuid = service.fetch_summoner_PUUID('Kounse', 'NA1') # placeholder for now
+    @puuid = SummonerApiService.fetch_summoner_PUUID(params[:name], params[:tag])
     puts @puuid
     render json: @puuid
   rescue RestClient::ExceptionWithResponse => e
