@@ -20,6 +20,9 @@ gem "bootsnap", require: false
 # REST client gem for making external API calls
 gem 'rest-client', '~> 2.1'
 
+# Firebase Admin SDK Tool
+gem 'firebase-admin-sdk', '~> 0.1.2'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mswin mswin64 mingw x64_mingw ]
