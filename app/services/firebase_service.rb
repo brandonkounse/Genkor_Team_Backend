@@ -19,9 +19,9 @@ class FirebaseService
     nil
   end
 
-  def store_team_member_data(summoner_name, puuid)
+  def store_team_member_data(summoner_name, summoner_data)
     url = "#{BASE_URL}/#{summoner_name}.json?auth=#{@id_token}"
-    payload = { puuid: puuid }.to_json
+    payload = summoner_data.to_json
     response = RestClient.put(url, payload, headers)
 
     JSON.parse(response.body)
