@@ -34,4 +34,4 @@
 
 
 # Ignore firebase credentials file
-firebase_service.json
+service_account.json
