@@ -1,11 +1,6 @@
 class FirebaseController < ApplicationController
   def get_team_members
     firebase_service = FirebaseService.new
-    render json: firebase_service.get_all_team_members_names
-  end
-
-  def get_team_members_stats
-    firebase_service = FirebaseService.new
     league_service = LeagueApiService.new
 
     team_members = firebase_service.get_all_team_member_data
@@ -20,7 +15,11 @@ class FirebaseController < ApplicationController
       end
 
       {
-        "#{name}" => { 
+        "#{name}" => {
+          profile_info: {
+            profile_icon_id: team_members[name]['profile_info']['profile_icon_id'],
+            summoner_level: team_members[name]['profile_info']['summoner_level']
+          }, 
           ranked_stats: filtered_stats
         },
       }
