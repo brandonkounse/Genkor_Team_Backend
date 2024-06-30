@@ -30,6 +30,8 @@ module GenkorTeamBackend
     config.api_only = true
 
     # Load the ENV file at the start of the app for the API key access
-    Dotenv::Railtie.load
+    if Rails.env.development? || Rails.env.test?
+      Dotenv::Railtie.load
+    end
   end
 end
