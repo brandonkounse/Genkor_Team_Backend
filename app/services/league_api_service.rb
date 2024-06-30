@@ -1,7 +1,5 @@
 # Service object for interfacing with Riot Games API
 
-require_relative '../models/genkor_team'
-
 class LeagueApiService
   API_KEY = ENV['RIOT_LEAGUE_API_KEY']
   ACCOUNT_V1 = ENV['ACCOUNT_V1_URL']
