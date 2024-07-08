@@ -29,6 +29,9 @@ group :development, :test do
 
   # Using dotenv-rails to hide API key for calls to Riot API
   gem 'dotenv-rails', '~> 2.1', '>= 2.1.1'
+
+  # Rubocop Linter
+  gem 'rubocop', '~> 1.64', '>= 1.64.1'
 end
 
 group :development do
