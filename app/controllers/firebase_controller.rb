@@ -4,26 +4,24 @@ class FirebaseController < ApplicationController
     league_service = LeagueApiService.new
 
     team_members = firebase_service.get_all_team_member_data
-    summoner_ids = firebase_service.get_all_team_member_summoner_ids
-    ranked_stats = summoner_ids.map { |id| league_service.get_summoner_ranked_stats(id) }
-
-    stats = team_members.map do |name, rank_stats|
-      member_stats = ranked_stats.find { |stats| stats['summonerId'] == team_members['summoner_id'] }
-
-      filtered_stats = member_stats.transform_values do |stats|
-        stats.except('summonerId')
-      end
-
+    members_with_ranked_stats = team_members.each_value.map do |v|
       {
-        "#{name}" => {
-          profile_info: {
-            profile_icon_id: team_members[name]['profile_info']['profile_icon_id'],
-            summoner_level: team_members[name]['profile_info']['summoner_level']
-          }, 
-          ranked_stats: filtered_stats
+        name: v['profile_info']['name'],
+        profile_info: {
+          profile_icon_id: v['profile_info']['profile_icon_id'],
+          summoner_level: v['profile_info']['summoner_level']
         },
+        ranked_stats: league_service.get_summoner_ranked_stats(v['profile_info']['summoner_id'])
       }
     end
-    render json: stats
+
+    members_with_filtered_stats = members_with_ranked_stats.map do |member|
+      filtered_ranked_stats = member[:ranked_stats].transform_values do |queue_stats|
+        queue_stats.except('summonerId')
+      end
+      member.merge(ranked_stats: filtered_ranked_stats)
+    end
+
+    render json: members_with_filtered_stats
   end
 end
