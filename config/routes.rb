@@ -9,5 +9,5 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  get 'team/members', to: 'firebase#get_team_members'
+  get 'team_members', to: 'team_members#index'
 end
