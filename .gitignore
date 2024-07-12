@@ -32,6 +32,5 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 
-
-# Ignore firebase credentials file
-service_account.json
+# Ignore rubocop yaml file
+.rubocop.yml
