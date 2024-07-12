@@ -1,5 +1,6 @@
-# Service object for interfacing with Riot Games API
+# frozen_string_literal: true
 
+# Service file for interfacing with Riot Games API
 class LeagueApiService
   API_KEY = ENV['RIOT_LEAGUE_API_KEY']
   ACCOUNT_V1 = ENV['ACCOUNT_V1_URL']
@@ -51,14 +52,14 @@ class LeagueApiService
     formatted_data = {}
     data.each do |obj|
       stats = {}
-      stats["leagueId"] = obj["leagueId"]
-      stats["queueType"] = obj["queueType"]
-      stats["tier"] = obj["tier"]
-      stats["rank"] = obj["rank"]
-      stats["wins"] = obj["wins"]
-      stats["losses"] = obj["losses"]
-      stats["summonerId"] = obj["summonerId"]
-      formatted_data[obj["queueType"]] = stats
+      stats['leagueId'] = obj['leagueId']
+      stats['queueType'] = obj['queueType']
+      stats['tier'] = obj['tier']
+      stats['rank'] = obj['rank']
+      stats['wins'] = obj['wins']
+      stats['losses'] = obj['losses']
+      stats['summonerId'] = obj['summonerId']
+      formatted_data[obj['queueType']] = stats
     end
     formatted_data
   end

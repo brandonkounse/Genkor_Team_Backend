@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class FirebaseController < ApplicationController
   def get_team_members
     firebase_service = FirebaseService.new

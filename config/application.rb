@@ -1,6 +1,8 @@
-require_relative "boot"
+# frozen_string_literal: true
 
-require "rails/all"
+require_relative 'boot'
+
+require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -14,7 +16,7 @@ module GenkorTeamBackend
     # Please, add to the `ignore` list any other `lib` subdirectories that do
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
-    config.autoload_lib(ignore: %w(assets tasks))
+    config.autoload_lib(ignore: %w[assets tasks])
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -30,8 +32,6 @@ module GenkorTeamBackend
     config.api_only = true
 
     # Load the ENV file at the start of the app for the API key access
-    if Rails.env.development? || Rails.env.test?
-      Dotenv::Railtie.load
-    end
+    Dotenv::Railtie.load if Rails.env.development? || Rails.env.test?
   end
 end

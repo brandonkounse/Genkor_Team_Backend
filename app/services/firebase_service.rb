@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 require 'rest-client'
 
+# Service file for getting data from Firebase
 class FirebaseService
   BASE_URL = ENV['FIREBASE_URL']
   API_KEY = ENV['FIREBASE_API_KEY']
@@ -25,10 +28,10 @@ class FirebaseService
   rescue RestClient::ExceptionWithResponse => e
     handle_http_error(e)
   end
-  
+
   def get_all_team_members_names
     names = []
-    
+
     get_all_team_member_data.each_key do |k|
       names.push(k)
     end
@@ -38,7 +41,7 @@ class FirebaseService
   def get_all_team_member_summoner_ids
     ids = []
 
-    get_all_team_member_data.each do |key, value|
+    get_all_team_member_data.each_value do |value|
       ids.push(value['profile_info']['summoner_id'])
     end
     ids
@@ -59,8 +62,8 @@ class FirebaseService
     { content_type: :json, accept: :json }
   end
 
-  def handle_http_error(e)
-    puts "Error: #{e.response}"
+  def handle_http_error(err)
+    puts "Error: #{err.response}"
   end
 
   def get_id_token
