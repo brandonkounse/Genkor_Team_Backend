@@ -34,9 +34,6 @@ group :development, :test do
 
   # Rubocop Linter
   gem 'rubocop', '~> 1.64', '>= 1.64.1'
-
-  # Middleware that will make Rack-based apps CORS compatible
-  gem 'rack-cors', '~> 2.0', '>= 2.0.2'
 end
 
 group :development do
