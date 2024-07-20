@@ -2,6 +2,8 @@
 
 # Orchestration to get members and stats to send to front end
 class TeamMembersController < ApplicationController
+  before_action :set_cors_headers
+
   def index
     members_with_stats = fetch_members_with_stats
     render json: filter_member_stats(members_with_stats)
@@ -48,5 +50,13 @@ class TeamMembersController < ApplicationController
 
   def league_service
     @league_service ||= LeagueApiService.new
+  end
+
+  def set_cors_headers
+    return unless request.headers['Origin'] == 'https://genkor.lol'
+
+    headers['Access-Control-Allow-Origin'] = 'https://genkor.lol'
+    headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
+    headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
   end
 end
