@@ -2,10 +2,10 @@
 
 # Service file for interfacing with Riot Games API
 class LeagueApiService
-  API_KEY = ENV['RIOT_LEAGUE_API_KEY']
-  ACCOUNT_V1 = ENV['ACCOUNT_V1_URL']
-  SUMMONER_V4 = ENV['SUMMONER_V4_URL']
-  LEAGUE_V4 = ENV['LEAGUE_V4_URL']
+  API_KEY = ENV.fetch('RIOT_LEAGUE_API_KEY', nil)
+  ACCOUNT_V1 = ENV.fetch('ACCOUNT_V1_URL', nil)
+  SUMMONER_V4 = ENV.fetch('SUMMONER_V4_URL', nil)
+  LEAGUE_V4 = ENV.fetch('LEAGUE_V4_URL', nil)
 
   def get_team_profile_information(summoners)
     team = []
@@ -25,18 +25,7 @@ class LeagueApiService
     format_ranked_data(data)
   end
 
-  private
-
-  def headers
-    { 'X-Riot-Token' => API_KEY }
-  end
-
-  def get_summoner_puuid(summoner_name, summoner_tag)
-    response = RestClient.get("#{ACCOUNT_V1}/#{summoner_name}/#{summoner_tag}?api_key=#{API_KEY}")
-    data = JSON.parse(response.body)
-    { puuid: data['puuid'] }
-  end
-
+  # API call to return hash of summoner_id, profile_icon_id, summoner_level, and puuid
   def get_summoner_profile_info(puuid)
     response = RestClient.get("#{SUMMONER_V4}/#{puuid}?api_key=#{API_KEY}")
     data = JSON.parse(response.body)
@@ -46,6 +35,19 @@ class LeagueApiService
       summoner_level: data['summonerLevel'],
       puuid: data['puuid']
     }
+  end
+
+  private
+
+  def headers
+    { 'X-Riot-Token' => API_KEY }
+  end
+
+  # API call for puuid only
+  def get_summoner_puuid(summoner_name, summoner_tag)
+    response = RestClient.get("#{ACCOUNT_V1}/#{summoner_name}/#{summoner_tag}?api_key=#{API_KEY}")
+    data = JSON.parse(response.body)
+    { puuid: data['puuid'] }
   end
 
   def format_ranked_data(data)
