@@ -19,16 +19,16 @@ class TeamMembersController < ApplicationController
   def build_member_data(member)
     {
       name: member['profile_info']['name'],
-      profile_info: extract_profile_info(member),
+      position: member['profile_info']['position'],
+      profile_info: extract_profile_info(member['profile_info']['puuid']),
       ranked_stats: fetch_ranked_stats(member)
     }
   end
 
-  def extract_profile_info(member)
-    {
-      profile_icon_id: member['profile_info']['profile_icon_id'],
-      summoner_level: member['profile_info']['summoner_level']
-    }
+  def extract_profile_info(puuid)
+    league_service.get_summoner_profile_info(puuid).filter do |key, _value|
+      %i[profile_icon_id summoner_level].include?(key)
+    end
   end
 
   def fetch_ranked_stats(member)
