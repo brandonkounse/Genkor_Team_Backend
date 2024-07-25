@@ -4,10 +4,10 @@ require 'rest-client'
 
 # Service file for getting data from Firebase
 class FirebaseService
-  BASE_URL = ENV['FIREBASE_URL']
-  API_KEY = ENV['FIREBASE_API_KEY']
-  ADMIN_EMAIL = ENV['FIREBASE_ADMIN_EMAIL']
-  ADMIN_PASSWORD = ENV['FIREBASE_ADMIN_PASSWORD']
+  BASE_URL = ENV.fetch('FIREBASE_URL', nil)
+  API_KEY = ENV.fetch('FIREBASE_API_KEY', nil)
+  ADMIN_EMAIL = ENV.fetch('FIREBASE_ADMIN_EMAIL', nil)
+  ADMIN_PASSWORD = ENV.fetch('FIREBASE_ADMIN_PASSWORD', nil)
 
   def initialize
     @id_token = get_id_token
