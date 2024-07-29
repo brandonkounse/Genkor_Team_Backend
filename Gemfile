@@ -34,6 +34,9 @@ group :development, :test do
 
   # Rubocop Linter
   gem 'rubocop', '~> 1.64', '>= 1.64.1'
+
+  # Rate Limiting
+  gem 'ruby-limiter', '~> 2.2', '>= 2.2.2'
 end
 
 group :development do
