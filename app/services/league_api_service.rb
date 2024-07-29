@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'limiter'
+
 # Service file for interfacing with Riot Games API
 class LeagueApiService
   extend Limiter::Mixin
