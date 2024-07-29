@@ -57,6 +57,7 @@ class TeamMembersController < ApplicationController
 
     headers['Access-Control-Allow-Origin'] = 'https://genkor.lol'
     headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, PATCH, DELETE, OPTIONS, HEAD'
-    headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token'
+    headers['Access-Control-Allow-Headers'] = '*'
+    headers['Access-Control-Allow-Credentials'] = 'true'
   end
 end
