@@ -2,6 +2,12 @@
 
 # Service file for interfacing with Riot Games API
 class LeagueApiService
+  extend Limiter::Mixin
+
+  limit_method :get_summoner_ranked_stats, rate: 100
+  limit_method :get_summoner_profile_info, rate: 1600
+  limit_method :get_summoner_puuid, rate: 1000
+
   API_KEY = ENV.fetch('RIOT_LEAGUE_API_KEY', nil)
   ACCOUNT_V1 = ENV.fetch('ACCOUNT_V1_URL', nil)
   SUMMONER_V4 = ENV.fetch('SUMMONER_V4_URL', nil)
@@ -19,6 +25,7 @@ class LeagueApiService
     team
   end
 
+  # API call to get a summoner's ranked stats
   def get_summoner_ranked_stats(summoner_id)
     response = RestClient.get("#{LEAGUE_V4}/#{summoner_id}?api_key=#{API_KEY}")
     data = JSON.parse(response.body)
